@@ -1,7 +1,5 @@
 ## Description
-<!--
-Add your description yere.
--->
+Replace this text with your description.
 
 ## Contributing requirements
 <!--
