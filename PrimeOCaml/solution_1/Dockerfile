@@ -1,16 +1,14 @@
-FROM primeimages/ocaml:4.12-r1 AS build
+FROM primeimages/ocaml:5.1 AS build
 
-WORKDIR /home/opam/primeocaml
+WORKDIR /prime-ocaml
 
-COPY *.ml ./
+COPY . .
 
-# hadolint ignore=DL3004
-RUN sudo chown -R opam:nogroup .
-RUN corebuild PrimeOCaml.native
+RUN dune build
 
-FROM alpine:3.13
+FROM alpine:3.19
 
 WORKDIR /app
-COPY --from=build /home/opam/primeocaml/PrimeOCaml.native PrimeOCaml.native
+COPY --from=build /prime-ocaml/_build/install/default/bin/prime-ocaml prime-ocaml.exe
 
-ENTRYPOINT [ "./PrimeOCaml.native" ]
+ENTRYPOINT [ "./prime-ocaml.exe" ]

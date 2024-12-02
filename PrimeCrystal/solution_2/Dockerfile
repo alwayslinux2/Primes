@@ -1,10 +1,13 @@
 FROM debian:11
 
-ENV CRYSTAL_VER="1.1"
+ENV CRYSTAL_VER="1.14"
 
 WORKDIR /opt
 
-RUN apt-get update && apt-get upgrade -y && apt-get install -y curl && \
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+RUN apt-get update && apt-get install -y curl && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
     curl -fsSL https://crystal-lang.org/install.sh | bash -s -- --version="${CRYSTAL_VER}"
 # compiler build has been finished here, image ready for use...
 

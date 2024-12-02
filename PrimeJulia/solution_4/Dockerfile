@@ -1,7 +1,7 @@
-FROM julia:1.6-buster
+FROM julia:1
 
 WORKDIR /opt/app
 
 COPY *.jl ./
 
-ENTRYPOINT [ "julia", "primes_unpeeled.jl" ]
+ENTRYPOINT [ "julia", "-O3", "primes.jl" ]
